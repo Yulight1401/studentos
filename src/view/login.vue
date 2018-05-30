@@ -2,14 +2,14 @@
   <div id="login-container">
     <el-form class="login-form"
              :rules="rules"
-             auto-complete="on"
+             autoComplete="on"
              :model="loginForm"
              ref="loginForm">
       <el-form-item prop="username"
                     label="username">
         <el-input v-model="loginForm.username"
                   placeholder="请输入用户名"
-                  auto-complete="on"
+                  autoComplete="on"
                   type="text"></el-input>
       </el-form-item>
       <el-form-item prop="password"
@@ -26,6 +26,7 @@
       <el-col :span="12"
               class="btn-container">
         <el-button type="primary"
+                   :loading="loading"
                    @click.native.prevent="handleLogin">登录</el-button>
       </el-col>
       <el-col :span="12"
@@ -38,8 +39,8 @@
 </template>
 
 <script>
-import Cookie from 'js-cookie'
-import { isValidUsername } from '@/utils/validate.js'
+
+import { isValidUsername } from '@/utils/validate'
 export default {
   name: 'Login',
   data() {
@@ -51,7 +52,7 @@ export default {
       }
     }
     const validatepassword = (rule, value, callback) => {
-      if (rule.length <= 6) {
+      if (value.length <= 6) {
         callback(new Error('密码要求大于6个字符！'))
       } else {
         callback()
@@ -62,6 +63,7 @@ export default {
         username: '',
         password: ''
       },
+      loading: false,
       rules: {
         username: [
           {
@@ -81,7 +83,25 @@ export default {
     }
   },
   methods: {
-    handleLogin() {},
+    handleLogin() {
+      this.$refs.loginForm.validate(valid => {
+        if (valid) {
+          this.loading = true
+          this.$store
+            .dispatch('Login', this.loginForm)
+            .then(() => {
+              this.loading = false
+              this.$route.push({ path: '/' })
+            })
+            .catch(() => {
+              this.loading = false
+            })
+        } else {
+          // 登录错误
+          console.log('error')
+        }
+      })
+    },
     register() {}
   }
 }

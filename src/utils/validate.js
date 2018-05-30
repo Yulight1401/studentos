@@ -1,6 +1,4 @@
-import Cookie from 'js-cookie'
-
+import vue from 'vue'
 export function isValidUsername(value) {
-  const valid_map = Cookie.getJSON('user')
-  return valid_map.includes(value)
+  let account = Vue.DB.get(value)
 }

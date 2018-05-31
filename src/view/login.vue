@@ -39,24 +39,38 @@
 </template>
 
 <script>
-
-import { isValidUsername } from '@/utils/validate'
 export default {
   name: 'Login',
   data() {
     const validateUsername = (rule, value, callback) => {
-      if (!isValidUsername(value)) {
-        callback(new Error('请输入正确的用户名！'))
-      } else {
+      if (value === 'admin') {
+        this.$store.dispatch('setRole', 'admin')
+        this.DB.getByIndex('admin', value, 'account')
+          .then(result => {
+            this.$store.dispatch('setAccount', result)
+          })
+          .catch(error => {
+            callback(error)
+          })
         callback()
+      } else {
+        // 表示此时是用户登录
+        this.$store.dispatch('setRole', 'user')
+        this.DB.getByIndex('user', value, 'account')
+          .then(result => {
+            this.$store.dispatch('setAccount', result)
+            callback()
+          })
+          .catch(error => {
+            console.log(error)
+            callback(error)
+          })
       }
     }
     const validatepassword = (rule, value, callback) => {
-      if (value.length <= 6) {
-        callback(new Error('密码要求大于6个字符！'))
-      } else {
-        callback()
-      }
+      let isEqual = this._.isEqual(this.$store.getters.password, value)
+      isEqual && callback()
+      callback(new Error('密码错误，请重新输入！！！'))
     }
     return {
       loginForm: {
@@ -85,6 +99,7 @@ export default {
   methods: {
     handleLogin() {
       this.$refs.loginForm.validate(valid => {
+        //TODO: 解决登录处理
         if (valid) {
           this.loading = true
           this.$store

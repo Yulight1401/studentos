@@ -7,7 +7,9 @@ const DB = {
     INIT: state => {
       if (state.isInit === '0') {
         state.isInit = '1'
-        cookie.set('isInit', '1')
+        cookie.set('isInit', '1', {
+          expires: 360
+        })
       } else {
         console.log('数据库已经初始化，无需再初始化')
       }

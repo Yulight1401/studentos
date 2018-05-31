@@ -6,7 +6,6 @@ class MyDB {
     this.db = null
     this.open()
     let isInit = cookie.get('isInit') || '0'
-    console.log(isInit)
     if (isInit === '0') {
       console.log('现在，数据库还未进行初始化设置,即将开始初始化')
       setTimeout(() => {
@@ -24,7 +23,6 @@ class MyDB {
     request.onsuccess = ev => {
       console.log('数据库打开成功')
       this.db = ev.target.result
-      console.log(this.db)
     }
     request.onupgradeneeded = ev => {
       let db = ev.target.result
@@ -35,7 +33,7 @@ class MyDB {
         store.createIndex('name', 'name', {
           unique: false
         })
-        store.createIndex('account', 'account.name', {
+        store.createIndex('account', 'account.username', {
           uniquee: true
         })
       }
@@ -43,7 +41,7 @@ class MyDB {
         let store = db.createObjectStore('admin', {
           autoIncrement: true
         })
-        store.createIndex('name', 'account.name', {
+        store.createIndex('account', 'account.username', {
           unique: true
         })
       }
@@ -60,14 +58,14 @@ class MyDB {
       id: 201621092026,
       name: '小明',
       account: {
-        name: 'user',
+        username: 'user',
         password: '123456789'
       }
     }
     let admin = {
       name: '管理员',
       account: {
-        name: 'admin',
+        username: 'admin',
         password: '987654321'
       }
     }
@@ -80,12 +78,26 @@ class MyDB {
     Store.add(data)
   }
   getByIndex(storeName, value, index) {
-    let transaction = this.db.transaction(storeName, 'readwrite')
-    let store = transaction.objectStore(storeName)
-    let MyIndex = store.index(index)
-    MyIndex.get(value).onsuccess = ev => {
-      return ev.target.result
-    }
+    // TODO: 解决indexedDB异步操作， 尝试使用promise和async来解决这个问题
+    // let transaction = this.db.transaction(storeName, 'readwrite')
+    // let store = transaction.objectStore(storeName)
+    // let MyIndex = store.index(index)
+    // let result = MyIndex.get(value)
+    // return result
+    return new Promise((resovle, reject) => {
+      let transaction = this.db.transaction(storeName, 'readwrite')
+      let store = transaction.objectStore(storeName)
+      let MyIndex = store.index(index)
+      let result = MyIndex.get(value)
+
+      result.onsuccess = ev => {
+        if (ev.target.result) {
+          resovle(ev.target.result)
+        } else {
+          reject(new Error('用户名错误，请重新输入！！！'))
+        }
+      }
+    })
   }
   get(storeName, value) {
     let transaction = this.db.transaction(storeName, 'readwrite')

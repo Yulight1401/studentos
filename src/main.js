@@ -8,6 +8,7 @@ import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 import DB from './DB/index'
 import cookie from 'js-cookie'
+import loadsh from 'loadsh'
 
 if (!cookie.get('isInit')) {
   cookie.set('isInit', '0', {
@@ -16,6 +17,7 @@ if (!cookie.get('isInit')) {
 }
 
 Vue.prototype.DB = DB
+Vue.prototype._ = loadsh
 Vue.use(ElementUI)
 Vue.config.productionTip = false
 
@@ -23,6 +25,7 @@ Vue.config.productionTip = false
 new Vue({
   el: '#app',
   router,
+  store,
   components: { App },
   template: '<App/>'
 })

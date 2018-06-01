@@ -108,6 +108,7 @@ class MyDB {
       return ev.target.result
     }
   }
+  
   updata(storeName, value, newValue = {}) {
     let transaction = this.db.transaction(storeName, 'readwrite')
     let store = transaction.objectStore(storeName)

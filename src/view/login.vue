@@ -103,7 +103,7 @@ export default {
         if (valid) {
           this.loading = true
           this.$store
-            .dispatch('Login', this.loginForm)
+            .dispatch('Login')
             .then(() => {
               this.loading = false
               this.$route.push({ path: '/' })

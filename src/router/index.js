@@ -45,6 +45,50 @@ export default new Router({
 
 export const asyncRouterMap = [
   {
-    path: '/'
+    path: '/manageUser', // 用户管理
+    name: 'manageUser',
+    meta: {
+      title: '用户管理',
+      roles: ['admin']
+    },
+    component: resolve => require(['../view/manageUser.vue'], resolve), // 懒加载组件的一种实现方式
+    children: [
+      {
+        path: '/addUser',
+        name: 'addUser',
+        meta: {
+          title: '增加用户',
+          roles: ['admin']
+        },
+        component: resolve => require(['../view/addUser.vue'], resolve)
+      },
+      {
+        path: '/deleteUser',
+        name: 'deleteUser',
+        meta: {
+          title: '删除用户',
+          roles: ['admin']
+        },
+        component: resolve => require(['../view/deleteUser.vue'], resolve)
+      },
+      {
+        path: '/findUser',
+        name: 'findUser',
+        meta: {
+          title: '查找用户',
+          roles: ['admin']
+        },
+        component: resolve => require(['../view/findUser.vue'], resolve)
+      },
+      {
+        path: '/changeUser',
+        name: 'changeUser',
+        meta: {
+          titile: '更改用户',
+          roles: ['admin']
+        },
+        component: resolve => require(['../view/changeUser.vue'], resolve)
+      }
+    ]
   }
 ]

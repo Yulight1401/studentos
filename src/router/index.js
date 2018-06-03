@@ -90,5 +90,10 @@ export const asyncRouterMap = [
         component: resolve => require(['../view/changeUser.vue'], resolve)
       }
     ]
+  },
+  {
+    path: '*',
+    redirect: '/404',
+    hidden: true
   }
 ]

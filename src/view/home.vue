@@ -1,1 +1,13 @@
-this is home
+<template>
+  <div id="home">
+    this is home
+  </div>
+</template>
+
+<script>
+export default {}
+</script>
+
+<style>
+</style>
+

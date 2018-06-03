@@ -103,10 +103,15 @@ export default {
         if (valid) {
           this.loading = true
           this.$store
-            .dispatch('Login')
+            .dispatch('login')
             .then(() => {
               this.loading = false
-              this.$route.push({ path: '/' })
+              this.$message({
+                message: '登录成功，现在开始使用本系统吧！',
+                type: 'success'
+              })
+              console.log('home')
+              this.$router.push({ path: '/' })
             })
             .catch(() => {
               this.loading = false

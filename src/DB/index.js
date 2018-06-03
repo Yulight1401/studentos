@@ -10,8 +10,9 @@ class MyDB {
       console.log('现在，数据库还未进行初始化设置,即将开始初始化')
       setTimeout(() => {
         this.init()
+        console.log(store)
+        store.dispatch('Init')
       }, 1000)
-      store.dispatch('Init')
     }
   }
   open() {
@@ -108,7 +109,7 @@ class MyDB {
       return ev.target.result
     }
   }
-  
+
   updata(storeName, value, newValue = {}) {
     let transaction = this.db.transaction(storeName, 'readwrite')
     let store = transaction.objectStore(storeName)
@@ -132,3 +133,14 @@ class MyDB {
 
 const DB = new MyDB()
 export default DB
+
+export const getInfo = (storeName, value, index) => {
+  DB.getByIndex(storeName, value, index)
+    .then(response => {
+      console.log(response)
+      return respose
+    })
+    .catch(err => {
+      console.log(err)
+    })
+}

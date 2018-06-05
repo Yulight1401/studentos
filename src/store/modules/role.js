@@ -1,5 +1,5 @@
 import { getToken, setToken, removeToken } from '@/utils/auth'
-import { getInfo } from '@/DB'
+import Vue from 'vue'
 const role = {
   state: {
     role: '',
@@ -27,6 +27,7 @@ const role = {
     },
     SET_TOKEN: (state, token) => {
       state.token = token
+      setToken(token)
     }
   },
   actions: {
@@ -51,7 +52,11 @@ const role = {
       return new Promise((resolve, reject) => {
         try {
           // TODO: 处理信息获取成功，却出现错误的结果
-          let data = getInfo(state.role, state.username, 'account')
+          let data = Vue.prototype.DB.getByIndex(
+            state.role,
+            state.account.username,
+            'account'
+          )
           resolve(data)
         } catch (error) {
           reject(error)

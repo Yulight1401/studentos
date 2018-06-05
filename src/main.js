@@ -10,7 +10,6 @@ import DB from './DB/index'
 import cookie from 'js-cookie'
 import loadsh from 'loadsh'
 
-import '@/permission'
 if (!cookie.get('isInit')) {
   cookie.set('isInit', '0', {
     expires: 360
@@ -22,6 +21,7 @@ Vue.prototype._ = loadsh
 Vue.use(ElementUI)
 Vue.config.productionTip = false
 
+import '@/permission'
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

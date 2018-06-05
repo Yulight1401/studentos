@@ -1,7 +1,10 @@
 import { asyncRouterMap, constantRouterMap } from '@/router'
 
 function hasPermission(role, route) {
-  return route.meta.roles.includes(role)
+  if (route.meta && route.meta.roles) {
+    return route.meta.roles.includes(role)
+  }
+  return true
 }
 
 function filterAsyncRouter(asyncRouterMap, role) {
@@ -26,7 +29,6 @@ const permission = {
     SET_ROUTERS: (state, routers) => {
       state.addRouters = routers
       state.routers = constantRouterMap.concat(routers)
-      console.log(`state routers ${state.routers}`)
     }
   },
   actions: {
@@ -36,7 +38,6 @@ const permission = {
           const { role } = data
           let accessedRouters
           accessedRouters = filterAsyncRouter(asyncRouterMap, role)
-          console.log(`accessedRouters ${accessedRouters}`)
           commit('SET_ROUTERS', accessedRouters)
           resolve()
         } catch (error) {

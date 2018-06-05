@@ -110,7 +110,6 @@ export default {
                 message: '登录成功，现在开始使用本系统吧！',
                 type: 'success'
               })
-              console.log('home')
               this.$router.push({ path: '/' })
             })
             .catch(() => {

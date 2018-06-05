@@ -133,14 +133,3 @@ class MyDB {
 
 const DB = new MyDB()
 export default DB
-
-export const getInfo = (storeName, value, index) => {
-  DB.getByIndex(storeName, value, index)
-    .then(response => {
-      console.log(response)
-      return respose
-    })
-    .catch(err => {
-      console.log(err)
-    })
-}

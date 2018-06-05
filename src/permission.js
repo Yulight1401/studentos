@@ -10,19 +10,21 @@ router.beforeEach((to, form, next) => {
   if (getToken()) {
     if (whiteList.includes(to.path)) {
       next()
-    } else {
+    } else if (!store.getters.isinfo) {
       store.dispatch('getInfo').then(res => {
         let role = store.getters.role
         Message({
           message: '信息获取成功',
           type: 'success'
         })
+        store.dispatch('setIsInfo', true)
         store.dispatch('generateRouters', { role }).then(() => {
-          console.log(`addRouters ${store.getters.addRouters}`)
           router.addRoutes(store.getters.addRouters)
           next({ ...to, replace: true })
         })
       })
+    } else {
+      next()
     }
   } else {
     if (whiteList.includes(to.path)) {

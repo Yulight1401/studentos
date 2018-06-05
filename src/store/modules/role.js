@@ -9,7 +9,8 @@ const role = {
     },
     name: '',
     avatar: '',
-    token: getToken()
+    token: getToken(),
+    isinfo: false
   },
   mutations: {
     SET_ROLE: (state, role) => {
@@ -28,9 +29,15 @@ const role = {
     SET_TOKEN: (state, token) => {
       state.token = token
       setToken(token)
+    },
+    SET_SIINFO: (state, isinfo) => {
+      state.isinfo = isinfo
     }
   },
   actions: {
+    setIsInfo({ commit }, isinfo) {
+      commit('SET_SIINFO', isinfo)
+    },
     setRole({ commit }, role) {
       commit('SET_ROLE', role)
     },

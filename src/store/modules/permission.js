@@ -38,6 +38,7 @@ const permission = {
           const { role } = data
           let accessedRouters
           accessedRouters = filterAsyncRouter(asyncRouterMap, role)
+          console.log(accessedRouters)
           commit('SET_ROUTERS', accessedRouters)
           resolve()
         } catch (error) {

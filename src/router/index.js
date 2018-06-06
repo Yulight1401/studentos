@@ -25,14 +25,6 @@ export const constantRouterMap = [
     name: 'register',
     hidden: true,
     component: Register
-  },
-  {
-    path: '/about',
-    name: 'aboutUs',
-    component: About,
-    meta: {
-      title: '关于我们'
-    }
   }
 ]
 
@@ -90,6 +82,81 @@ export const asyncRouterMap = [
         component: resolve => require(['../view/changeUser.vue'], resolve)
       }
     ]
+  },
+  {
+    path: '/manageCourse',
+    name: 'manageCourse',
+    meta: {
+      title: '课程管理',
+      roles: ['admin']
+    },
+    component: resolve => require(['../view/manageCourse.vue'], resolve),
+    children: [
+      {
+        path: '/addCourse',
+        name: 'addCourse',
+        meta: {
+          title: '增加课程',
+          roles: ['admin']
+        },
+        component: resolve => require(['../view/addCourse.vue'], resolve)
+      },
+      {
+        path: '/deleteCourse',
+        name: 'deleteCourse',
+        meta: {
+          title: '删除课程',
+          roles: ['admin']
+        },
+        component: resolve => require(['../view/deleteCourse.vue'], resolve)
+      },
+      {
+        path: '/findCourse',
+        name: 'findCourse',
+        meta: {
+          title: '查找课程',
+          roles: ['admin']
+        },
+        component: resolve => require(['../view/findCourse.vue'], resolve)
+      },
+      {
+        path: '/changeCourse',
+        name: 'changeCourse',
+        meta: {
+          title: '更改课程',
+          roles: ['admin']
+        },
+        component: resolve => require(['../view/changeCourse.vue'], resolve)
+      }
+    ]
+  },
+  // 用户路由
+  {
+    path: '/basicInfo',
+    name: 'basicInfo',
+    meta: {
+      title: '基本信息',
+      roles: ['user']
+    }
+  },
+  // 公共路由
+  {
+    path: '/findScore',
+    name: 'findScore',
+    meta: {
+      title: '成绩查询',
+      roles: ['admin', 'user']
+    },
+    component: resolve => require(['../view/findScore.vue'], resolve)
+  },
+  {
+    path: '/about',
+    name: 'aboutUs',
+    component: About,
+    meta: {
+      title: '关于我们',
+      roles: ['admin', 'user']
+    }
   },
   {
     path: '*',

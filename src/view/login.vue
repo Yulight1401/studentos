@@ -23,17 +23,16 @@
 
     </el-form>
     <el-row>
-      <el-col :span="12"
+      <el-col :span="24"
               class="btn-container">
         <el-button type="primary"
+                   size="medium"
+                   round
+                   class="login-btn"
                    :loading="loading"
                    @click.native.prevent="handleLogin">登录</el-button>
       </el-col>
-      <el-col :span="12"
-              class="btn-container">
-        <el-button type="primary"
-                   @click.native.prevent="register">注册</el-button>
-      </el-col>
+
     </el-row>
   </div>
 </template>
@@ -74,8 +73,8 @@ export default {
     }
     return {
       loginForm: {
-        username: '',
-        password: ''
+        username: 'admin',
+        password: '987654321'
       },
       loading: false,
       rules: {
@@ -106,10 +105,6 @@ export default {
             .dispatch('login')
             .then(() => {
               this.loading = false
-              this.$message({
-                message: '登录成功，现在开始使用本系统吧！',
-                type: 'success'
-              })
               this.$router.push({ path: '/' })
             })
             .catch(() => {
@@ -135,8 +130,7 @@ export default {
   display: flex;
   justify-content: center;
 }
-.register-content {
-  display: inline-block;
-  padding: 26px 0;
+.login-btn {
+  width: 200px;
 }
 </style>

@@ -14,7 +14,7 @@ router.beforeEach((to, form, next) => {
       store.dispatch('getInfo').then(res => {
         let role = store.getters.role
         Message({
-          message: '信息获取成功',
+          message: '欢迎使用本系统！',
           type: 'success'
         })
         store.dispatch('setIsInfo', true)

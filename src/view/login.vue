@@ -36,8 +36,8 @@
     </el-row>
   </div>
 </template>
-
 <script>
+// FIXME: 用户登录模块实在是烂，记得优化此模块
 export default {
   name: 'Login',
   data() {

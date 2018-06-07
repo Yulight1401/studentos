@@ -1,30 +1,26 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Login from '@/view/login'
-import Register from '@/view/register'
 import Home from '@/view/home'
 import About from '@/view/about'
+import addUser from '@/view/addUser'
+import deleteUser from '@/view/deleteUser'
+import changeUser from '@/view/changeUser'
+import findUser from '@/view/findUser'
+import addCourse from '@/view/addCourse'
+import deleteCourse from '@/view/deleteCourse'
+import changeCourse from '@/view/changeCourse'
+import findCourse from '@/view/findCourse'
+import findScore from '@/view/findScore'
 
 Vue.use(Router)
 
 export const constantRouterMap = [
   {
-    path: '/',
-    name: 'home',
-    hidden: true,
-    component: Home
-  },
-  {
     path: '/login',
     name: 'login',
     hidden: true,
     component: Login
-  },
-  {
-    path: '/register',
-    name: 'register',
-    hidden: true,
-    component: Register
   }
 ]
 
@@ -37,13 +33,10 @@ export default new Router({
 
 export const asyncRouterMap = [
   {
-    path: '/manageUser', // 用户管理
-    name: 'manageUser',
-    meta: {
-      title: '用户管理',
-      roles: ['admin']
-    },
-    component: resolve => require(['../view/manageUser.vue'], resolve), // 懒加载组件的一种实现方式
+    name: 'home',
+    path: '/',
+    hidden: true,
+    component: Home,
     children: [
       {
         path: '/addUser',
@@ -52,7 +45,7 @@ export const asyncRouterMap = [
           title: '增加用户',
           roles: ['admin']
         },
-        component: resolve => require(['../view/addUser.vue'], resolve)
+        component: addUser
       },
       {
         path: '/deleteUser',
@@ -61,7 +54,7 @@ export const asyncRouterMap = [
           title: '删除用户',
           roles: ['admin']
         },
-        component: resolve => require(['../view/deleteUser.vue'], resolve)
+        component: deleteUser
       },
       {
         path: '/findUser',
@@ -70,28 +63,17 @@ export const asyncRouterMap = [
           title: '查找用户',
           roles: ['admin']
         },
-        component: resolve => require(['../view/findUser.vue'], resolve)
+        component: findUser
       },
       {
         path: '/changeUser',
         name: 'changeUser',
         meta: {
-          titile: '更改用户',
+          title: '更改用户',
           roles: ['admin']
         },
-        component: resolve => require(['../view/changeUser.vue'], resolve)
-      }
-    ]
-  },
-  {
-    path: '/manageCourse',
-    name: 'manageCourse',
-    meta: {
-      title: '课程管理',
-      roles: ['admin']
-    },
-    component: resolve => require(['../view/manageCourse.vue'], resolve),
-    children: [
+        component: changeUser
+      },
       {
         path: '/addCourse',
         name: 'addCourse',
@@ -99,7 +81,7 @@ export const asyncRouterMap = [
           title: '增加课程',
           roles: ['admin']
         },
-        component: resolve => require(['../view/addCourse.vue'], resolve)
+        component: addCourse
       },
       {
         path: '/deleteCourse',
@@ -108,7 +90,7 @@ export const asyncRouterMap = [
           title: '删除课程',
           roles: ['admin']
         },
-        component: resolve => require(['../view/deleteCourse.vue'], resolve)
+        component: deleteCourse
       },
       {
         path: '/findCourse',
@@ -117,7 +99,7 @@ export const asyncRouterMap = [
           title: '查找课程',
           roles: ['admin']
         },
-        component: resolve => require(['../view/findCourse.vue'], resolve)
+        component: findCourse
       },
       {
         path: '/changeCourse',
@@ -126,37 +108,37 @@ export const asyncRouterMap = [
           title: '更改课程',
           roles: ['admin']
         },
-        component: resolve => require(['../view/changeCourse.vue'], resolve)
+        component: changeCourse
+      },
+      // 用户路由
+      {
+        path: '/basicInfo',
+        name: 'basicInfo',
+        meta: {
+          title: '基本信息',
+          roles: ['user']
+        }
+      },
+      // 公共路由
+      {
+        path: '/findScore',
+        name: 'findScore',
+        meta: {
+          title: '成绩查询',
+          roles: ['admin', 'user']
+        },
+        component: findScore
+      },
+      {
+        path: '/about',
+        name: 'aboutUs',
+        component: About,
+        meta: {
+          title: '关于我们',
+          roles: ['admin', 'user']
+        }
       }
     ]
-  },
-  // 用户路由
-  {
-    path: '/basicInfo',
-    name: 'basicInfo',
-    meta: {
-      title: '基本信息',
-      roles: ['user']
-    }
-  },
-  // 公共路由
-  {
-    path: '/findScore',
-    name: 'findScore',
-    meta: {
-      title: '成绩查询',
-      roles: ['admin', 'user']
-    },
-    component: resolve => require(['../view/findScore.vue'], resolve)
-  },
-  {
-    path: '/about',
-    name: 'aboutUs',
-    component: About,
-    meta: {
-      title: '关于我们',
-      roles: ['admin', 'user']
-    }
   },
   {
     path: '*',

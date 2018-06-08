@@ -10,7 +10,6 @@ class MyDB {
       console.log('现在，数据库还未进行初始化设置,即将开始初始化')
       setTimeout(() => {
         this.init()
-        console.log(store)
         store.dispatch('Init')
       }, 1000)
     }
@@ -73,9 +72,9 @@ class MyDB {
     this.add('user', user)
     this.add('admin', admin)
   }
-  add(data) {
-    let transaction = this.db.transaction('user', 'readwrite')
-    let Store = transaction.objectStore('user')
+  add(storeName, data) {
+    let transaction = this.db.transaction(storeName, 'readwrite')
+    let Store = transaction.objectStore(storeName)
     Store.add(data)
   }
   getByIndex(storeName, value, index) {
@@ -101,13 +100,21 @@ class MyDB {
     })
   }
   get(storeName, value) {
-    let transaction = this.db.transaction(storeName, 'readwrite')
-    let store = transaction.objectStore(storeName)
-    store.get(value).onsuccess = ev => {
-      // 如果索引是唯一的，那么会返回正确的结果，但是如果索引不是唯一，则会返回第一个匹配的结果
-      // 这时候想要返回正确的结果，就需要用到游标
-      return ev.target.result
-    }
+    return new Promise((resovle, reject) => {
+      let transaction = this.db.transaction(storeName, 'readwrite')
+      let store = transaction.objectStore(storeName)
+      let myValue = Number.parseInt(value)
+      let request = store.get(myValue)
+      request.onsuccess = ev => {
+        // 如果索引是唯一的，那么会返回正确的结果，但是如果索引不是唯一，则会返回第一个匹配的结果
+        // 这时候想要返回正确的结果，就需要用到游标
+        if (ev.target.result) {
+          resovle(ev.target.result)
+        } else {
+          reject(new Error('学号错误，请重新输入！！！'))
+        }
+      }
+    })
   }
 
   updata(storeName, value, newValue = {}) {

@@ -72,7 +72,13 @@ export default {
       if (this._.isEmpty(value)) {
         callback('姓名不能为空')
       }
-      callback()
+      this.DB.get('user', value, 'name')
+        .then(result => {
+          callback('该姓名已被注册')
+        })
+        .catch(error => {
+          callback()
+        })
     }
     return {
       form: {
@@ -119,14 +125,14 @@ export default {
                 password: this.form.password
               }
             }
-            this.DB.add(data)
+            this.DB.add('user', data)
           } catch (error) {
-            this.message({
+            this.$message({
               type: 'error',
               message: '用户增加失败'
             })
           }
-          this.message({
+          this.$message({
             type: 'success',
             message: '用户增加成功'
           })
@@ -139,7 +145,7 @@ export default {
 
 <style>
 .addUser {
-  width: 500px;
+  width: 600px;
 }
 .addBtn {
   width: 200px;

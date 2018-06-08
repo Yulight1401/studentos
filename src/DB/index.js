@@ -73,9 +73,9 @@ class MyDB {
     this.add('user', user)
     this.add('admin', admin)
   }
-  add(storeName, data) {
-    let transaction = this.db.transaction(storeName, 'readwrite')
-    let Store = transaction.objectStore(storeName)
+  add(data) {
+    let transaction = this.db.transaction('user', 'readwrite')
+    let Store = transaction.objectStore('user')
     Store.add(data)
   }
   getByIndex(storeName, value, index) {

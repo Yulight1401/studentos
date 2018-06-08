@@ -105,7 +105,7 @@ export default {
             .dispatch('login')
             .then(() => {
               this.loading = false
-              this.$router.push({ path: '/' })
+              this.$router.push({ path: '/about' })
             })
             .catch(() => {
               this.loading = false

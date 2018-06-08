@@ -55,8 +55,8 @@ class MyDB {
   }
   init() {
     let user = {
-      id: 201621092026,
       name: '小明',
+      id: 201621092026,
       account: {
         username: 'user',
         password: '123456789'

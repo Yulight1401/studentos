@@ -44,7 +44,6 @@ export default {
 .el-main {
   display: flex;
   justify-content: center;
-  align-items: center;
 }
 </style>
 

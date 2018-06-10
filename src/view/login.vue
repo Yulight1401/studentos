@@ -133,4 +133,7 @@ export default {
 .Btn {
   width: 200px;
 }
+.el-row {
+  margin: 10px 0;
+}
 </style>

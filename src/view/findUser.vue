@@ -84,7 +84,7 @@ export default {
           .catch(err => {
             this.$message({
               type: 'error',
-              message: '查找失败' + err
+              message: '查找失败！！ 请核对后，重新输入进行查找。。。。'
             })
           })
       } else if (this.form.id) {
@@ -95,7 +95,7 @@ export default {
           .catch(err => {
             this.$message({
               type: 'error',
-              message: '查找失败' + err
+              message: '查找失败！！ 请核对后，重新输入进行查找。。。。'
             })
           })
       } else if (this.form.username) {
@@ -106,7 +106,7 @@ export default {
           .catch(err => {
             this.$message({
               type: 'error',
-              message: '查找失败' + err
+              message: '查找失败！！ 请核对后，重新输入进行查找。。。。'
             })
           })
       } else {

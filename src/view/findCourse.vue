@@ -172,6 +172,6 @@ export default {
 
 <style>
 .findCourse {
-  width: 602px;
+  width: 600px;
 }
 </style>

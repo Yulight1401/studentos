@@ -51,7 +51,8 @@
 </template>
 
 <script>
-import getID from '../utils/id'
+import { getID } from '../utils/id'
+import cookie from 'js-cookie'
 export default {
   name: 'addUser',
   data() {
@@ -132,6 +133,9 @@ export default {
               }
             }
             this.DB.add('user', data)
+            cookie.set('baseID', this.form.id + 1, {
+              expires: 360
+            })
           } catch (error) {
             this.$message({
               type: 'error',

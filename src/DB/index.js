@@ -45,6 +45,17 @@ class MyDB {
           unique: true
         })
       }
+      if (!db.objectStoreNames.contains('course')) {
+        let store = db.createObjectStore('course', {
+          keyPath: 'id'
+        })
+        store.createIndex('name', 'name', {
+          unique: false
+        })
+        store.createIndex('teacher', 'teacher.name', {
+          unique: false
+        })
+      }
     }
   }
   close() {
@@ -57,6 +68,7 @@ class MyDB {
     let user = {
       name: '小明',
       id: 201621092026,
+      course: [1],
       account: {
         username: 'user',
         password: '123456789'
@@ -69,8 +81,23 @@ class MyDB {
         password: '987654321'
       }
     }
+    let course = {
+      name: '高数',
+      id: 1,
+      student: [
+        {
+          id: 201621092026,
+          score: 98
+        }
+      ],
+      teacher: {
+        name: '高老师',
+        sex: '男'
+      }
+    }
     this.add('user', user)
     this.add('admin', admin)
+    this.add('course', course)
   }
   add(storeName, data) {
     let transaction = this.db.transaction(storeName, 'readwrite')
@@ -118,13 +145,16 @@ class MyDB {
   }
 
   updata(storeName, value, newValue = {}) {
-    let transaction = this.db.transaction(storeName, 'readwrite')
-    let store = transaction.objectStore(storeName)
-    store.get(value).onsuccess = ev => {
-      let result = ev.target.result
-      Object.assign(result, newValue)
-      store.put(result)
-    }
+    return new Promise((resolve, reject) => {
+      let transaction = this.db.transaction(storeName, 'readwrite')
+      let store = transaction.objectStore(storeName)
+      store.get(value).onsuccess = ev => {
+        let result = ev.target.result
+        Object.assign(result, newValue)
+        store.put(result)
+        resolve(result)
+      }
+    })
   }
   delete(storeName, value) {
     let transaction = this.db.transaction(storeName, 'readwrite')

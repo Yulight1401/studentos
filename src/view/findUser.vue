@@ -33,7 +33,7 @@
       <el-col :span="24"
               class="btn-container">
         <el-button type="primary"
-                   class="findBtn"
+                   class="Btn"
                    @click.native.prevent="find"
                    round>
           开始查找
@@ -134,9 +134,6 @@ export default {
 <style>
 .findUser {
   width: 600px;
-}
-.findBtn {
-  width: 200px;
 }
 </style>
 

@@ -28,7 +28,7 @@
         <el-button type="primary"
                    size="medium"
                    round
-                   class="login-btn"
+                   class="Btn"
                    :loading="loading"
                    @click.native.prevent="handleLogin">登录</el-button>
       </el-col>
@@ -130,7 +130,7 @@ export default {
   display: flex;
   justify-content: center;
 }
-.login-btn {
+.Btn {
   width: 200px;
 }
 </style>

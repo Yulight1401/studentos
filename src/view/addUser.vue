@@ -40,7 +40,7 @@
       <el-col :span="24"
               class="btn-container">
         <el-button type="primary"
-                   class="addBtn"
+                   class="Btn"
                    round
                    @click.native.prevent="add">
           立即增加
@@ -158,9 +158,6 @@ export default {
 <style>
 .addUser {
   width: 600px;
-}
-.addBtn {
-  width: 200px;
 }
 </style>
 

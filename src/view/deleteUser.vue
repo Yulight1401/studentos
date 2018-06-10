@@ -22,7 +22,7 @@
       <el-col :span="24"
               class="btn-container">
         <el-button type="primary"
-                   class="deleteBtn"
+                   class="Btn"
                    @click.native.prevent="deleteU"
                    round>
           开始删除
@@ -170,9 +170,6 @@ export default {
 <style>
 .deleteUser {
   width: 600px;
-}
-.deleteBtn {
-  width: 200px;
 }
 </style>
 

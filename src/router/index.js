@@ -15,6 +15,7 @@ import findScore from '@/view/findScore'
 import findScoreS from '@/view/findScoreS'
 import basicInfo from '@/view/basicInfo'
 import selectCourse from '@/view/selectCourse'
+import unselectCourse from '@/view/unselectCourse'
 
 Vue.use(Router)
 
@@ -149,6 +150,15 @@ export const asyncRouterMap = [
           roles: ['user']
         },
         component: selectCourse
+      },
+      {
+        path: '/unselectCourse',
+        name: 'unselectCourse',
+        meta: {
+          title: '还是退选吧!',
+          roles: ['user']
+        },
+        component: unselectCourse
       },
       {
         path: '/about',

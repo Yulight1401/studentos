@@ -13,7 +13,8 @@ import changeCourse from '@/view/changeCourse'
 import findCourse from '@/view/findCourse'
 import findScore from '@/view/findScore'
 import findScoreS from '@/view/findScoreS'
-import basicInfo from '@/view/basicInfo';
+import basicInfo from '@/view/basicInfo'
+import selectCourse from '@/view/selectCourse'
 
 Vue.use(Router)
 
@@ -141,11 +142,28 @@ export const asyncRouterMap = [
         component: findScoreS
       },
       {
+        path: '/selectCourse',
+        name: 'selectCourse',
+        meta: {
+          title: '开始选课吧！',
+          roles: ['user']
+        },
+        component: selectCourse
+      },
+      {
         path: '/about',
         name: 'aboutUs',
         component: About,
         meta: {
           title: '关于我们',
+          roles: ['admin', 'user']
+        }
+      },
+      {
+        path: '/exit',
+        name: 'exit',
+        meta: {
+          title: '退出系统',
           roles: ['admin', 'user']
         }
       }

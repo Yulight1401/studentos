@@ -2,11 +2,19 @@ import router from './router'
 import store from './store'
 import Vue from 'vue'
 import { Message } from 'element-ui'
-import { getToken } from '@/utils/auth'
+import { getToken, removeToken } from '@/utils/auth'
 
 const whiteList = ['/login']
 // FIXME: 权限认证模块实在是差，记得优化此模块
 router.beforeEach((to, form, next) => {
+  if (to.path === '/exit') {
+    removeToken()
+    location.reload()
+    Message({
+      type: 'success',
+      message: '已退出本系统！！！'
+    })
+  }
   if (getToken()) {
     if (whiteList.includes(to.path)) {
       next()

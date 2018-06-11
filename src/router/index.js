@@ -13,6 +13,7 @@ import changeCourse from '@/view/changeCourse'
 import findCourse from '@/view/findCourse'
 import findScore from '@/view/findScore'
 import findScoreS from '@/view/findScoreS'
+import basicInfo from '@/view/basicInfo';
 
 Vue.use(Router)
 
@@ -118,7 +119,8 @@ export const asyncRouterMap = [
         meta: {
           title: '基本信息',
           roles: ['user']
-        }
+        },
+        component: basicInfo
       },
       {
         path: '/findScore',

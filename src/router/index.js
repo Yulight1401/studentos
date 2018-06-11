@@ -12,6 +12,7 @@ import deleteCourse from '@/view/deleteCourse'
 import changeCourse from '@/view/changeCourse'
 import findCourse from '@/view/findCourse'
 import findScore from '@/view/findScore'
+import findScoreS from '@/view/findScoreS'
 
 Vue.use(Router)
 
@@ -119,15 +120,23 @@ export const asyncRouterMap = [
           roles: ['user']
         }
       },
-      // 公共路由
       {
         path: '/findScore',
         name: 'findScore',
         meta: {
           title: '成绩查询',
-          roles: ['admin', 'user']
+          roles: ['admin']
         },
         component: findScore
+      },
+      {
+        path: '/findScoreS',
+        name: 'findScoreS',
+        meta: {
+          title: '成绩查询',
+          roles: ['user']
+        },
+        component: findScoreS
       },
       {
         path: '/about',

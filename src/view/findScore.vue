@@ -53,29 +53,53 @@
       </el-tab-pane>
       <el-tab-pane label="学生成绩"
                    name="studentS">
-        <el-alert title="注意啦！！！"
-                  description="输入想要查看成绩的学号，即可知道该学生的选修的所有的课程的成绩以及一些基本信息"
-                  close-text="知道了"
-                  type="warning"></el-alert>
-        <el-form ref="form"
-                 status-icon
-                 label-position="top"
-                 :model="form">
-          <el-form-item label="学号">
-            <el-input placeholder="请输入需要查看成绩的学号"
-                      v-model="form.courseID"
-                      @keyup.enter.native="findScoreS"></el-input>
-          </el-form-item>
-        </el-form>
-        <el-row class="findScore-btn">
-          <el-col :span="24"
-                  class="btn-container">
-            <el-button class="Btn"
-                       type="primary"
-                       round
-                       @click.native.prevent="findScoreS">开始查看</el-button>
-          </el-col>
-        </el-row>
+        <template v-if="!showS">
+          <el-alert title="注意啦！！！"
+                    description="输入想要查看成绩的学号，即可知道该学生的选修的所有的课程的成绩以及一些基本信息"
+                    close-text="知道了"
+                    type="warning"></el-alert>
+          <el-form ref="form"
+                   status-icon
+                   label-position="top"
+                   :model="form">
+            <el-form-item label="学号">
+              <el-input placeholder="请输入需要查看成绩的学号"
+                        v-model="form.studentID"
+                        @keyup.enter.native="findScoreS"></el-input>
+            </el-form-item>
+          </el-form>
+          <el-row class="findScore-btn">
+            <el-col :span="24"
+                    class="btn-container">
+              <el-button class="Btn"
+                         type="primary"
+                         round
+                         @click.native.prevent="findScoreS">开始查看</el-button>
+            </el-col>
+          </el-row>
+        </template>
+        <template v-else>
+          <el-table :data="course">
+            <el-table-column label="课程号"
+                             width="200"
+                             prop="id"></el-table-column>
+            <el-table-column label="课程名"
+                             width="200"
+                             prop="name"></el-table-column>
+            <el-table-column label="成绩"
+                             width="200"
+                             prop="score"></el-table-column>
+          </el-table>
+          <el-row>
+            <el-col :span="24"
+                    class="btn-container">
+              <el-button class="Btn"
+                         round
+                         type="primary"
+                         @click.native.prevent="reset">重新查询</el-button>
+            </el-col>
+          </el-row>
+        </template>
       </el-tab-pane>
     </el-tabs>
   </div>
@@ -100,9 +124,23 @@ export default {
   methods: {
     findScoreS() {
       let value = Number.parseInt(this.form.studentID)
-      this.DB.get('user', value).then(res => {
-        console.log(res)
+      this.DB.get('user', value).then(res1 => {
+        res1.course.forEach(cou => {
+          this.DB.get('course', cou).then(res2 => {
+            res2.student.forEach(stu => {
+              if (stu.id === value) {
+                let data = {
+                  id: cou,
+                  name: res2.teacher.name,
+                  score: stu.score
+                }
+                this.course.push(data)
+              }
+            })
+          })
+        })
       })
+      this.showS = true
     },
     findScoreC() {
       let value = Number.parseInt(this.form.courseID)

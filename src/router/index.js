@@ -16,6 +16,7 @@ import findScoreS from '@/view/findScoreS'
 import basicInfo from '@/view/basicInfo'
 import selectCourse from '@/view/selectCourse'
 import unselectCourse from '@/view/unselectCourse'
+import score from '@/view/score'
 
 Vue.use(Router)
 
@@ -132,6 +133,15 @@ export const asyncRouterMap = [
           roles: ['admin']
         },
         component: findScore
+      },
+      {
+        path: '/score',
+        name: 'score',
+        meta: {
+          title: '登记分数',
+          roles: ['admin']
+        },
+        component: score
       },
       {
         path: '/findScoreS',

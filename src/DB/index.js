@@ -150,6 +150,8 @@ class MyDB {
       let store = transaction.objectStore(storeName)
       store.get(value).onsuccess = ev => {
         let result = ev.target.result
+        console.log(newValue)
+        console.log(result)
         Object.assign(result, newValue)
         store.put(result)
         resolve(result)

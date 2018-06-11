@@ -11,10 +11,18 @@
              label-position="top">
       <el-form-item label="课程">
         <el-input v-model="form.name"
-                  placeholder="请输入想要查看成绩的课程名"
-                  @keyup.enter.native="find"></el-input>
+                  placeholder="请输入想要查看成绩的课程名"></el-input>
       </el-form-item>
     </el-form>
+    <el-row class="findScore-btn">
+      <el-col :span="24"
+              class="btn-container">
+        <el-button class="Btn"
+                   type="primary"
+                   round
+                   @click.native.prevent="find">开始查看</el-button>
+      </el-col>
+    </el-row>
     <template v-if="!showFilter">
       <el-table :data="courseScore">
         <el-table-column prop="name"

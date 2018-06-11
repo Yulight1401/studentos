@@ -55,7 +55,7 @@ export default {
               let oldStu = this._.cloneDeep(res3.student)
               oldStu.push({
                 id: res.id,
-                score: '暂无成绩'
+                score: null
               })
               let newValueStu = {
                 student: oldStu

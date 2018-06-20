@@ -130,7 +130,8 @@ export default {
               account: {
                 username: this.form.username,
                 password: this.form.password
-              }
+              },
+              course: []
             }
             this.DB.add('user', data)
             cookie.set('baseID', this.form.id + 1, {

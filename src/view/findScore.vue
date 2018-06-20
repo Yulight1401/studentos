@@ -64,7 +64,8 @@
                    :model="form">
             <el-form-item label="学号">
               <el-input placeholder="请输入需要查看成绩的学号"
-                        v-model="form.studentID"></el-input>
+                        v-model="form.studentID"
+                         @keyup.enter.native="findScoreS"></el-input>
             </el-form-item>
           </el-form>
           <el-row class="findScore-btn">

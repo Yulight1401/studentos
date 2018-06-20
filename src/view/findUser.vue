@@ -121,6 +121,7 @@ export default {
             this.showResult(result)
           })
           .catch(err => {
+            console.log(err)
             this.$message({
               type: 'error',
               message: '查找失败！！ 请核对后，重新输入进行查找。。。。'
